@@ -1,5 +1,13 @@
 [
   {
+    "type": "video",
+    "src": "https://www.philippwachowitz.de/static/enidloop.mp4",
+    "title": "Enid Loop",
+    "artist": "Phil",
+    "likes": 0,
+    "comments": []
+  },
+  {
     "type": "image",
     "src": "https://picsum.photos/400/300?random=1",
     "title": "Test Media",
