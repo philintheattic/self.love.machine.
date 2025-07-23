@@ -1,8 +1,8 @@
 [
   {
     "type": "video",
-    "src": "https://www.philippwachowitz.de/static/enidloop.mp4",
-    "title": "Enid Loop",
+    "src": "./static/02.mp4",
+    "title": "CEO",
     "artist": "Phil",
     "likes": 0,
     "comments": []
@@ -17,7 +17,7 @@
   },
   {
     "type": "video",
-    "src": "https://sample-videos.com/zip/10/mp4/SampleVideo_360x240_1mb.mp4",
+    "src": "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     "title": "Digital Flow",
     "artist": "Alex Rivera",
     "likes": 78,
@@ -41,8 +41,8 @@
   },
   {
     "type": "video",
-    "src": "https://sample-videos.com/zip/10/mp4/SampleVideo_360x240_2mb.mp4",
-    "title": "Motion Graphics",
+    "src": "./static/01.mp4",
+    "title": "Brainrot",
     "artist": "David Kim",
     "likes": 89,
     "comments": []
@@ -61,14 +61,6 @@
     "title": "Minimalist Beauty",
     "artist": "Jordan Park",
     "likes": 67,
-    "comments": []
-  },
-  {
-    "type": "video",
-    "src": "https://sample-videos.com/zip/10/mp4/SampleVideo_720x480_1mb.mp4",
-    "title": "Cinematic Vision",
-    "artist": "Taylor Swift",
-    "likes": 234,
     "comments": []
   }
 ]
