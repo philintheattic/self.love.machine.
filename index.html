@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Art Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .gallery-header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .gallery-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .media-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .media-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .media-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .media-container img,
+        .media-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .media-card:hover .media-container img,
+        .media-card:hover .media-container video {
+            transform: scale(1.05);
+        }
+
+        .media-info {
+            padding: 20px;
+        }
+
+        .media-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .media-artist {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .interaction-bar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .like-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .like-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .like-btn.liked {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+        }
+
+        .like-count {
+            font-weight: 600;
+        }
+
+        .comment-count {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .comments-section {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .comment {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            animation: slideIn 0.5s ease;
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .comment-text {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .comment-time {
+            color: #999;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .like-animation {
+            animation: pulse 0.3s ease;
+        }
+
+        /* Custom scrollbar */
+        .comments-section::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .comments-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .comments-section::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .comments-section::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .gallery-header h1 {
+                font-size: 2rem;
+            }
+            
+            .media-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-header">
+        <h1>Digital Art Gallery</h1>
+        <p>Discover amazing art from talented creators</p>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+        <!-- Media cards will be generated here -->
+    </div>
+
+    <script>
+
+        let mediaData = [];
+
+        async function loadMediaData() {
+            try {
+                const response = await fetch('./media.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const mediaItems = await response.json();
+                mediaData = mediaItems;
+            } catch (error) {
+                console.error('Error loading media data:', error);
+                // Fallback to empty array or default data
+                mediaData = [];
+            }
+        }
+
+        
+
+        // Sample media data
+
+        // Predefined comments and usernames
+        const commentTexts = [
+            "Absolutely stunning work!",
+            "This speaks to my soul",
+            "Love the color composition",
+            "Incredible attention to detail",
+            "This is pure artistry",
+            "Beautiful perspective!",
+            "Amazing use of light and shadow",
+            "This made my day better",
+            "Such creative vision",
+            "Masterpiece!",
+            "The emotion in this is powerful",
+            "Breathtaking work",
+            "This is so inspiring",
+            "Perfect timing and composition",
+            "Art at its finest",
+            "This deserves to be in a museum",
+            "Wow, just wow!",
+            "The technique is flawless",
+            "This gives me chills",
+            "Pure magic captured"
+        ];
+
+        const usernames = [
+            "ArtLover92", "PixelMaster", "CreativeSoul", "VisualPoet", "ArtisticEye",
+            "ColorEnthusiast", "DesignGuru", "ArtCritic", "VisualStoryteller", "CreativeGenius",
+            "ArtAddict", "PixelPerfect", "VisualArtist", "CreativeMind", "ArtAppreciator",
+            "DesignLover", "ArtisticSpirit", "VisualDreamer", "CreativeHeart", "ArtInspired"
+        ];
+
+        
+
+
+        function createMediaCard(item, index) {
+            const card = document.createElement('div');
+            card.className = 'media-card';
+            card.innerHTML = `
+                <div class="media-container">
+                    ${item.type === 'video' 
+                        ? `<video controls muted>
+                             <source src="${item.src}" type="video/mp4">
+                             Your browser does not support the video tag.
+                           </video>`
+                        : `<img src="${item.src}" alt="${item.title}">`
+                    }
+                </div>
+                <div class="media-info">
+                    <div class="media-title">${item.title}</div>
+                    <div class="media-artist">by ${item.artist}</div>
+                    <div class="interaction-bar">
+                        <button class="like-btn" onclick="toggleLike(${index})">
+                            <span>❤️</span>
+                            <span class="like-count">${item.likes}</span>
+                        </button>
+                        <div class="comment-count">${item.comments.length} comments</div>
+                    </div>
+                    <div class="comments-section" id="comments-${index}">
+                        ${item.comments.map(comment => createCommentHTML(comment)).join('')}
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function createCommentHTML(comment) {
+            return `
+                <div class="comment">
+                    <div class="comment-author">${comment.author}</div>
+                    <div class="comment-text">${comment.text}</div>
+                    <div class="comment-time">${comment.time}</div>
+                </div>
+            `;
+        }
+
+        function toggleLike(index) {
+            const item = mediaData[index];
+            item.likes += Math.floor(Math.random() * 3) + 1; // Add 1-3 likes
+            
+            const likeBtn = document.querySelector(`#galleryGrid .media-card:nth-child(${index + 1}) .like-btn`);
+            const likeCount = likeBtn.querySelector('.like-count');
+            
+            likeCount.textContent = item.likes;
+            likeBtn.classList.add('like-animation', 'liked');
+            
+            setTimeout(() => {
+                likeBtn.classList.remove('like-animation');
+            }, 300);
+        }
+
+        function addRandomComment(index) {
+            const item = mediaData[index];
+            const randomComment = commentTexts[Math.floor(Math.random() * commentTexts.length)];
+            const randomUser = usernames[Math.floor(Math.random() * usernames.length)];
+            const now = new Date();
+            
+            const comment = {
+                author: randomUser,
+                text: randomComment,
+                time: `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`
+            };
+            
+            item.comments.unshift(comment);
+            
+            // Update the comment section
+            const commentsSection = document.getElementById(`comments-${index}`);
+            const commentCount = document.querySelector(`#galleryGrid .media-card:nth-child(${index + 1}) .comment-count`);
+            
+            commentsSection.insertAdjacentHTML('afterbegin', createCommentHTML(comment));
+            commentCount.textContent = `${item.comments.length} comments`;
+        }
+
+        function addRandomLike(index) {
+            const item = mediaData[index];
+            item.likes += Math.floor(Math.random() * 2) + 1; // Add 1-2 likes
+            
+            const likeCount = document.querySelector(`#galleryGrid .media-card:nth-child(${index + 1}) .like-count`);
+            likeCount.textContent = item.likes;
+        }
+
+        function startAutoInteractions() {
+            setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * mediaData.length);
+                const action = Math.random() > 0.4 ? 'comment' : 'like'; // 60% chance for comment, 40% for like
+                
+                if (action === 'comment') {
+                    addRandomComment(randomIndex);
+                } else {
+                    addRandomLike(randomIndex);
+                }
+            }, 3000); // Every 3 seconds
+        }
+
+        // Initialize gallery
+        function initGallery() {
+            
+            const galleryGrid = document.getElementById('galleryGrid');
+
+            mediaData.forEach((item, index) => {
+                const card = createMediaCard(item, index);
+                galleryGrid.appendChild(card);
+            });
+            
+            // Start automatic interactions after a short delay
+            setTimeout(startAutoInteractions, 2000);
+        }
+
+        // Load gallery when page is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMediaData().then(() => {
+                initGallery();
+            });
+        });
+    </script>
+</body>
+</html>

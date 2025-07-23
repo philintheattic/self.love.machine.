@@ -1,0 +1,66 @@
+[
+  {
+    "type": "image",
+    "src": "https://picsum.photos/400/300?random=1",
+    "title": "Test Media",
+    "artist": "Maya Chen",
+    "likes": 42,
+    "comments": []
+  },
+  {
+    "type": "video",
+    "src": "https://sample-videos.com/zip/10/mp4/SampleVideo_360x240_1mb.mp4",
+    "title": "Digital Flow",
+    "artist": "Alex Rivera",
+    "likes": 78,
+    "comments": []
+  },
+  {
+    "type": "image",
+    "src": "https://picsum.photos/400/300?random=2",
+    "title": "Urban Geometry",
+    "artist": "Sam Johnson",
+    "likes": 156,
+    "comments": []
+  },
+  {
+    "type": "image",
+    "src": "https://picsum.photos/400/300?random=3",
+    "title": "Nature's Palette",
+    "artist": "Luna Martinez",
+    "likes": 203,
+    "comments": []
+  },
+  {
+    "type": "video",
+    "src": "https://sample-videos.com/zip/10/mp4/SampleVideo_360x240_2mb.mp4",
+    "title": "Motion Graphics",
+    "artist": "David Kim",
+    "likes": 89,
+    "comments": []
+  },
+  {
+    "type": "image",
+    "src": "https://picsum.photos/400/300?random=4",
+    "title": "Abstract Thoughts",
+    "artist": "Emma Wilson",
+    "likes": 124,
+    "comments": []
+  },
+  {
+    "type": "image",
+    "src": "https://picsum.photos/400/300?random=5",
+    "title": "Minimalist Beauty",
+    "artist": "Jordan Park",
+    "likes": 67,
+    "comments": []
+  },
+  {
+    "type": "video",
+    "src": "https://sample-videos.com/zip/10/mp4/SampleVideo_720x480_1mb.mp4",
+    "title": "Cinematic Vision",
+    "artist": "Taylor Swift",
+    "likes": 234,
+    "comments": []
+  }
+]
