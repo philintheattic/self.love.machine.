@@ -1,10 +1,16 @@
 :root {
     --main-bg-color: black;
+    --main-txt-color: white;
+    --accent-color: #b3ff00;
 }
 
 @font-face {
     font-family: pigarnos;
     src: url(pigarnos.otf);
+}
+@font-face {
+    font-family: clashDisplay;
+    src: url(clashdisplay.otf);
 }
 
 * {
@@ -14,8 +20,10 @@
 }
 
 body {
-    font-family: pigarnos, Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #000000 0%, #ffffff 100%);
+    font-family: clashDisplay, Arial, Helvetica, sans-serif;
+    /* background: linear-gradient(135deg, #000000 0%, #ffffff 100%); */
+    background-color: var(--main-bg-color);
+    color: white;
     min-height: 100vh;
     padding: 20px;
 }
@@ -24,13 +32,16 @@ body {
     text-align: center;
     margin-bottom: 40px;
     color: white;
+    text-align: left;
 }
 
 .gallery-header h1 {
+    font-family: pigarnos;
     font-size: 3rem;
     font-weight: 300;
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-decoration: underline var(--accent-color) wavy 3pt;
 }
 
 .gallery-header p {
@@ -47,8 +58,10 @@ body {
 }
 
 .media-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border-color: #f0f0f0;
+    border-style: solid;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -63,7 +76,7 @@ body {
 .media-container {
     position: relative;
     width: 100%;
-    height: 250px;
+    height: 450px;
     overflow: hidden;
 }
 
@@ -87,12 +100,12 @@ body {
 .media-title {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #333;
+    color: #ddd;
     margin-bottom: 8px;
 }
 
 .media-artist {
-    color: #666;
+    color: #aaa;
     font-size: 1rem;
     margin-bottom: 15px;
 }
@@ -110,9 +123,10 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    /* background: linear-gradient(45deg, #b8ff1f, #ee5a24); */
+    background-color: rgb(0,0,0,0);
     color: white;
-    border: none;
+    border: solid white;
     padding: 10px 15px;
     border-radius: 25px;
     cursor: pointer;
@@ -124,10 +138,13 @@ body {
 .like-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    background-color: #b3ff0055;
 }
 
 .like-btn.liked {
-    background: linear-gradient(45deg, #2ecc71, #27ae60);
+    /* background: linear-gradient(45deg, #2ecc71, #27ae60); */
+    background-color: var(--accent-color);
+    color: black;
 }
 
 .like-count {
@@ -135,7 +152,7 @@ body {
 }
 
 .comment-count {
-    color: #666;
+    color: #aaa;
     font-size: 0.9rem;
 }
 
@@ -156,13 +173,13 @@ body {
 
 .comment-author {
     font-weight: 600;
-    color: #333;
+    color: #ddd;
     font-size: 0.9rem;
     margin-bottom: 5px;
 }
 
 .comment-text {
-    color: #555;
+    color: #aaa;
     font-size: 0.9rem;
     line-height: 1.4;
 }
@@ -224,6 +241,6 @@ body {
     }
     
     .media-container {
-        height: 200px;
+        height: 400px;
     }
 }
